@@ -1,33 +1,33 @@
-const Markdoc = require('@markdoc/markdoc');
-const markdocConfig = {};
-   
+const Markdoc = require('@markdoc/markdoc'); 
 
 module.exports = function(eleventyConfig) {
-
+    // You can place JS, CSS, images etc. in src/_assets
     eleventyConfig.addPassthroughCopy('src/_assets');
 
     eleventyConfig.setDataDeepMerge(true);
-
+    
+    // Based on the example in the Eleventy docs: https://www.11ty.dev/docs/languages/custom/#overriding-an-existing-template-language
     eleventyConfig.addExtension("md", {
         compile: function (inputContent, inputPath) {
-            //console.log(inputContent);
+            console.log(inputContent);
             let ast = Markdoc.parse(inputContent);
-            //console.log(ast);
+            let markdocConfig = {
+                variables: {
+                    currentYear: '2022'
+                }
+            };
             let content = Markdoc.transform(ast, markdocConfig);
-            //console.log(content);
             let html = Markdoc.renderers.html(content);    
-            console.log(html);
-            return html;
+            return () => html;
         }
       });
 
-
-
     return {
+        markdownTemplateEngine: false,
         passthroughFileCopy: true,
         dir: {
             input: "src",
-            output: "docs"
+            output: "site"
         }
     }
 };

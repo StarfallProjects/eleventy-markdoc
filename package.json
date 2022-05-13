@@ -1,7 +1,7 @@
 {
   "name": "eleventy-markdoc",
   "version": "1.0.0",
-  "description": "An Eleventy starter with Markdoc",
+  "description": "A very basic Eleventy site with Markdoc enabled",
   "main": "index.js",
   "scripts": {
     "start": "npm run dev",
@@ -23,6 +23,7 @@
   "homepage": "https://github.com/StarfallProjects/eleventy-markdoc#readme",
   "devDependencies": {
     "@11ty/eleventy": "^1.0.1",
-    "@markdoc/markdoc": "^0.1.2"
+    "@markdoc/markdoc": "^0.1.2",
+    "cross-env": "^7.0.3"
   }
 }
