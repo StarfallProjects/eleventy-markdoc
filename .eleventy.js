@@ -6,16 +6,19 @@ module.exports = function(eleventyConfig) {
     
     // Based on the example in the Eleventy docs: https://www.11ty.dev/docs/languages/custom/#overriding-an-existing-template-language
     eleventyConfig.addExtension("md", {
-        compile: function (inputContent, inputPath) {
-            let ast = Markdoc.parse(inputContent);
-            let markdocConfig = {
-                variables: {
-                    currentYear: '2022'
-                }
-            };
-            let content = Markdoc.transform(ast, markdocConfig);
-            let html = Markdoc.renderers.html(content);    
-            return () => html;
+        compile: function (inputContent, inputPath) {   
+            return (data) => {
+                let ast = Markdoc.parse(inputContent);
+                let markdocConfig = {
+                    variables: {
+                        currentYear: '2022',
+                        title: data.title
+                    }
+                };
+                let content = Markdoc.transform(ast, markdocConfig);
+                let html = Markdoc.renderers.html(content); 
+                return html;
+            }
         }
       });
 
